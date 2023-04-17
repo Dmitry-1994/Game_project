@@ -1,7 +1,4 @@
-
 package ru.netology;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,8 +22,10 @@ public class PlayerTest {
 
         int expected = 3;
         int actual = player_1.sumGenre(game_1.getGenre());
+
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSumGenreIfSetFewGameNan() { //установлено несколько игр, не играли в подходящую игру
 
@@ -36,8 +35,10 @@ public class PlayerTest {
 
         int expected = 0;
         int actual = player_1.sumGenre(game_1.getGenre());
+
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSumGenreIfSetFewGameFew() { //установлено несколько игр, играли в несколько игр
 
@@ -49,11 +50,13 @@ public class PlayerTest {
 
         int expected = 8;
         int actual = player_1.sumGenre(game_2.getGenre());
+
         Assertions.assertEquals(expected, actual);
     }
+
     // Проверка игры определенного жанра, в которую играли больше всего
     @Test
-    public void mostPlayerByGenreNull(){ //в игру заданного жанра не играли
+    public void mostPlayerByGenreNull() { //в игру заданного жанра не играли
 
         player_1.installGame(game_1);
         player_1.installGame(game_2);
@@ -63,11 +66,13 @@ public class PlayerTest {
 
         Game expected = null;
         Game actual = player_1.mostPlayerByGenre(game_1.getGenre());
+
         Assertions.assertEquals(expected, actual);
 
     }
+
     @Test
-    public void mostPlayerByGenreOneGame(){ //играли в одну игру заданного жанра
+    public void mostPlayerByGenreOneGame() { //играли в одну игру заданного жанра
 
         player_1.installGame(game_1);
         player_1.installGame(game_2);
@@ -78,11 +83,13 @@ public class PlayerTest {
 
         Game expected = game_1;
         Game actual = player_1.mostPlayerByGenre(game_1.getGenre());
+
         Assertions.assertEquals(expected, actual);
 
     }
+
     @Test
-    public void mostPlayerByGenreFewGame(){ //играли в несколько игр заданного жанра
+    public void mostPlayerByGenreFewGame() { //играли в несколько игр заданного жанра
 
         player_1.installGame(game_1);
         player_1.installGame(game_2);
@@ -93,17 +100,111 @@ public class PlayerTest {
 
         Game expected = game_3;
         Game actual = player_1.mostPlayerByGenre(game_2.getGenre());
+
         Assertions.assertEquals(expected, actual);
 
     }
+
     // Проверка установки игры игроку
-    // НЕОБХОДИМ метод в классе Player который возвращал словарь с информацией об всех установленных играх и количеста проигранного в них времени
+    // НЕОБХОДИМ метод fiendPlayedTime в классе Player который возвращал словарь с информацией обо всех установленных играх и количестве проигранного в них времени
 //    @Test
-//    public void installGameNull(){ //у игрока нет установленных игр
+//    public void installGameNull() { //у игрока нет установленных игр
 //
 //        Map<Game, Integer> expected = new HashMap<>();
-//        Map<Game, Integer> actual = player_1.;
+//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
+//
 //        Assertions.assertEquals(expected, actual);
+//
+//    }
+//
+//    @Test
+//    public void installGameNull() { //у игрока одна установленная игра
+//
+//        player_1.installGame(game_2);
+//
+//        Map<Game, Integer> expected = new HashMap<>();
+//        expected.put(game_2, 0);
+//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
+//
+//        Assertions.assertEquals(expected, actual);
+//
+//    }
+//
+//    @Test
+//    public void installGameNull() { //у игрока несколько установленных игр
+//
+//        player_1.installGame(game_1);
+//        player_1.installGame(game_3);
+//        player_1.installGame(game_2);
+//
+//        Map<Game, Integer> expected = new HashMap<>();
+//        expected.put(game_1, 0);
+//        expected.put(game_3, 0);
+//        expected.put(game_2, 0);
+//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
+//
+//        Assertions.assertEquals(expected, actual);
+//
+//    }
+
+    @Test
+    public void playNull() { //не играли в подходящую игру
+
+        player_1.installGame(game_1);
+        player_1.installGame(game_2);
+        player_1.installGame(game_3);
+        player_1.play(game_2, 3);
+        player_1.play(game_3, 5);
+
+        int expected = 0;
+        int actual = player_1.play(game_1, 0);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void playInGameFirst() { //играли в подходящую игру в первый раз
+
+        player_1.installGame(game_1);
+        player_1.installGame(game_2);
+        player_1.installGame(game_3);
+        player_1.play(game_2, 3);
+        player_1.play(game_3, 5);
+
+        int expected = 7;
+        int actual = player_1.play(game_1, 7);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void playInGameNoFirstTime() { //играли в подходящую игру не в первый раз
+
+        player_1.installGame(game_1);
+        player_1.installGame(game_2);
+        player_1.installGame(game_3);
+        player_1.play(game_1, 7);
+        player_1.play(game_2, 3);
+        player_1.play(game_3, 5);
+
+        int expected = 11;
+        int actual = player_1.play(game_1, 4);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+//    @Test
+//    public void playNotInstalledException() { //выкидывать исключение, если запускаемая игроком игра не была установлена
+//
+//        player_1.installGame(game_1);
+//        player_1.installGame(game_3);
+//
+//        Assertions.assertThrows(NotInstalledException.class, () -> {
+//            player_1.play(game_2, 2);
+//        });
 //
 //    }
 
