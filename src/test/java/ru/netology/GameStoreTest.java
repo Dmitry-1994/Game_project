@@ -25,19 +25,19 @@ public class GameStoreTest {
         assertFalse(store.containsGame(game));
     }
 
-    @Test //регистрация и суммирование времени игрока
-    public void addPlayTime() {
-
-        store.addPlayTime("Player1", 3);
-        store.addPlayTime("Player1", 4);
-        store.addPlayTime("Player1", 5);
-
-        int expected = 12;
-        int actual =  //Вот тут нужно, чтобы суммировалось время одного игрока
-
-        Assertions.assertEquals(expected, actual);
-
-    }
+//    @Test //регистрация и суммирование времени игрока
+//    public void addPlayTime() {
+//
+//        store.addPlayTime("Player1", 3);
+//        store.addPlayTime("Player1", 4);
+//        store.addPlayTime("Player1", 5);
+//
+//        int expected = 12;
+//        int actual =  //Вот тут нужно, чтобы суммировалось время одного игрока
+//
+//        Assertions.assertEquals(expected, actual);
+//
+//    }
 
     @Test //поиск игрока, который сыграл дольше всех
     public void showBestPlayer() {
