@@ -69,4 +69,8 @@ public class Player {
     public Game mostPlayerByGenre(String genre) {
         return null;
     }
+
+    public Map<Game, Integer> fiendPlayedTime() {
+        return playedTime;
+    }
 }
