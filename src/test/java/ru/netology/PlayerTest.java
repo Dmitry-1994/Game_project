@@ -34,7 +34,7 @@ public class PlayerTest {
         player_1.play(game_1, 3);
 
         int expected = 0;
-        int actual = player_1.sumGenre(game_1.getGenre());
+        int actual = player_1.sumGenre(game_2.getGenre());
 
         Assertions.assertEquals(expected, actual);
     }
@@ -95,11 +95,11 @@ public class PlayerTest {
         player_1.installGame(game_2);
         player_1.installGame(game_3);
         player_1.play(game_1, 7);
-        player_1.play(game_2, 3);
-        player_1.play(game_3, 5);
+        player_1.play(game_2, 5);
+        player_1.play(game_3, 3);
 
-        Game expected = game_3;
-        Game actual = player_1.mostPlayerByGenre(game_2.getGenre());
+        Game expected = game_2;
+        Game actual = player_1.mostPlayerByGenre(game_3.getGenre());
 
         Assertions.assertEquals(expected, actual);
 
@@ -107,45 +107,45 @@ public class PlayerTest {
 
     // Проверка установки игры игроку
     // НЕОБХОДИМ метод fiendPlayedTime в классе Player который возвращал словарь с информацией обо всех установленных играх и количестве проигранного в них времени
-//    @Test
-//    public void installGameNull() { //у игрока нет установленных игр
-//
-//        Map<Game, Integer> expected = new HashMap<>();
-//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
-//
-//        Assertions.assertEquals(expected, actual);
-//
-//    }
-//
-//    @Test
-//    public void installGameNull() { //у игрока одна установленная игра
-//
-//        player_1.installGame(game_2);
-//
-//        Map<Game, Integer> expected = new HashMap<>();
-//        expected.put(game_2, 0);
-//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
-//
-//        Assertions.assertEquals(expected, actual);
-//
-//    }
-//
-//    @Test
-//    public void installGameNull() { //у игрока несколько установленных игр
-//
-//        player_1.installGame(game_1);
-//        player_1.installGame(game_3);
-//        player_1.installGame(game_2);
-//
-//        Map<Game, Integer> expected = new HashMap<>();
-//        expected.put(game_1, 0);
-//        expected.put(game_3, 0);
-//        expected.put(game_2, 0);
-//        Map<Game, Integer> actual = player_1.fiendPlayedTime;
-//
-//        Assertions.assertEquals(expected, actual);
-//
-//    }
+    @Test
+    public void installGameNull() { //у игрока нет установленных игр
+
+        Map<Game, Integer> expected = new HashMap<>();
+        Map<Game, Integer> actual = player_1.fiendPlayedTime();
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void installGameOne() { //у игрока одна установленная игра
+
+        player_1.installGame(game_2);
+
+        Map<Game, Integer> expected = new HashMap<>();
+        expected.put(game_2, 0);
+        Map<Game, Integer> actual = player_1.fiendPlayedTime();
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void installGameFew() { //у игрока несколько установленных игр
+
+        player_1.installGame(game_1);
+        player_1.installGame(game_3);
+        player_1.installGame(game_2);
+
+        Map<Game, Integer> expected = new HashMap<>();
+        expected.put(game_1, 0);
+        expected.put(game_3, 0);
+        expected.put(game_2, 0);
+        Map<Game, Integer> actual = player_1.fiendPlayedTime();
+
+        Assertions.assertEquals(expected, actual);
+
+    }
 
     @Test
     public void playNull() { //не играли в подходящую игру
@@ -196,16 +196,16 @@ public class PlayerTest {
 
     }
 
-//    @Test
-//    public void playNotInstalledException() { //выкидывать исключение, если запускаемая игроком игра не была установлена
-//
-//        player_1.installGame(game_1);
-//        player_1.installGame(game_3);
-//
-//        Assertions.assertThrows(NotInstalledException.class, () -> {
-//            player_1.play(game_2, 2);
-//        });
-//
-//    }
+    @Test
+    public void playNotInstalledException() { //выкидывать исключение, если запускаемая игроком игра не была установлена
+
+        player_1.installGame(game_1);
+        player_1.installGame(game_3);
+
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            player_1.play(game_2, 2);
+        });
+
+    }
 
 }
