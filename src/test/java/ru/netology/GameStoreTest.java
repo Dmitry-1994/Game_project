@@ -99,7 +99,7 @@ public class GameStoreTest {
     public void showBestPlayerZeroHour() {
         store.addPlayTime("Player1", 0);
 
-        String expected = "Player1";
+        String expected = null;
         String actual = store.getMostPlayer();
 
         Assertions.assertEquals(expected, actual);
