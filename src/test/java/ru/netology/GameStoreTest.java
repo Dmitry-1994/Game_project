@@ -107,7 +107,7 @@ public class GameStoreTest {
     }
 
     @Test //поиск игрока, если он один и сыграл 2 часа
-    public void showBestPlayer6() {
+    public void showBestPlayerTwoHour() {
         store.addPlayTime("Player1", 2);
 
         String expected = "Player1";
