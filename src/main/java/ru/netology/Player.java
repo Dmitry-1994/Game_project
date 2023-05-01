@@ -37,9 +37,12 @@ public class Player {
      * если игра не была установлена, то надо выкидывать RuntimeException
      */
     public int play(Game game, int hours) {
+        if (!playedTime.containsKey(game)) {
+            throw new RuntimeException();
+        }
         game.getStore().addPlayTime(name, hours);
         if (playedTime.containsKey(game)) {
-            playedTime.put(game, playedTime.get(game));
+            playedTime.put(game, playedTime.get(game) + hours);
         } else {
             playedTime.put(game, hours);
         }
@@ -55,8 +58,6 @@ public class Player {
         for (Game game : playedTime.keySet()) {
             if (game.getGenre().equals(genre)) {
                 sum += playedTime.get(game);
-            } else {
-                sum = 0;
             }
         }
         return sum;
@@ -67,6 +68,21 @@ public class Player {
      * Если в игры этого жанра не играли, возвращается null
      */
     public Game mostPlayerByGenre(String genre) {
-        return null;
+        Game resultGame = null;
+        int resultTime = 0;
+        for (Game game : playedTime.keySet()) {
+            if (game.getGenre().equals(genre)) {
+                if (playedTime.get(game) > resultTime) {
+                    resultGame = game;
+                    resultTime = playedTime.get(game);
+                }
+            }
+        }
+        return resultGame;
+    }
+
+
+    public Map<Game, Integer> fiendPlayedTime() {
+        return playedTime;
     }
 }
